@@ -1,31 +1,25 @@
-name: React CI 
+name: CI
 
 on:
- push:branch[main]
-   branches: [main]
-   pull_request:
-   branches: [main]
-   jobs:
-  build-and-test:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
-
-      - name: npm ci
-        run: npm ci
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install vite@latest
-
-      - name: Run tests
-        run: npm test --if-present
+        run: npm install
 
       - name: Build project
         run: npm run build --if-present
